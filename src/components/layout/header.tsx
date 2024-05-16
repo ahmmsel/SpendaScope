@@ -3,6 +3,7 @@
 import { Logo } from "@/components/globals/logo";
 import { UserButton } from "@/components/globals/user-button";
 import { Navigation } from "@/components/layout/navigation";
+import { MobileNavigation } from "@/components/layout/mobile-navigation";
 
 export const Header = () => {
 	return (
@@ -12,7 +13,10 @@ export const Header = () => {
 					<Logo />
 					<Navigation />
 				</div>
-				<UserButton />
+				<div className="flex items-center gap-x-4">
+					<UserButton />
+					<MobileNavigation />
+				</div>
 			</div>
 		</header>
 	);
