@@ -33,7 +33,7 @@ export const UserButton = () => {
 					<AvatarFallback>{data?.user?.name}</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent>
+			<DropdownMenuContent className="mr-2">
 				<DropdownMenuItem onClick={() => setTheme("light")}>
 					<Sun className="mr-2" /> Light
 				</DropdownMenuItem>

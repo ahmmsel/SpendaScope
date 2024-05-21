@@ -84,4 +84,8 @@
   .on-hover {
     @apply transition-all duration-300;
   }
+
+  .wrapper {
+    @apply container md:mx-auto md:w-[80%] md:max-w-[40rem];
+  }
 }

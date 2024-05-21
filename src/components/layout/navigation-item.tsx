@@ -7,9 +7,10 @@ import { usePathname } from "next/navigation";
 type Props = {
 	label: string;
 	href: string;
+	onClick?: () => void;
 };
 
-export const NavigationItem = ({ label, href }: Props) => {
+export const NavigationItem = ({ label, href, onClick }: Props) => {
 	const pathname = usePathname();
 
 	const isActive = pathname === href;
@@ -18,6 +19,7 @@ export const NavigationItem = ({ label, href }: Props) => {
 		<Link
 			href={href}
 			prefetch={false}
+			onClick={onClick}
 			className={cn(
 				"text-lg font-medium leading-tight hover:text-primary on-hover",
 				isActive ? "text-primary" : "text-muted-foreground",

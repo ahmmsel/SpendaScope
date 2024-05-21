@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SessionProvider } from "@/components/providers/session-provider";
+import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 
 export const metadata: Metadata = {
   title: "SpendaScope",
@@ -18,15 +19,17 @@ export default function RootLayout({
     <SessionProvider>
       <html lang="en">
         <body>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Toaster />
-            {children}
-          </ThemeProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Toaster richColors position="bottom-right" />
+              {children}
+            </ThemeProvider>
+          </ReactQueryProvider>
         </body>
       </html>
     </SessionProvider>
