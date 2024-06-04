@@ -19,6 +19,6 @@ export async function GET() {
 		});
 	}
 
-	revalidatePath("/dashboard");
+	revalidatePath("/");
 	return Response.json(settings);
 }

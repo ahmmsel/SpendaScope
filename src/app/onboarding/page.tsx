@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CurrencyComboBox } from "@/components/settings/currency-combo-box";
+import Link from "next/link";
 
 export default async function Page() {
 	const user = await getCurrentUser();
@@ -40,7 +41,9 @@ export default async function Page() {
 					<CurrencyComboBox />
 				</CardContent>
 			</Card>
-			<Button className="w-full">Confirm</Button>
+			<Button className="w-full" asChild>
+				<Link href="/">Done, got to dashboard!</Link>
+			</Button>
 		</main>
 	);
 }

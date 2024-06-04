@@ -1,7 +1,7 @@
 export const links = [
 	{
 		label: "Dashboard",
-		href: "/dashboard",
+		href: "/",
 	},
 	{
 		label: "Transactions",

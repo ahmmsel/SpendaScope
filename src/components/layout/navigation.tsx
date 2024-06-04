@@ -1,6 +1,6 @@
 "use client";
 
-import { links } from "@/constants/links";
+import { links } from "@/lib/links";
 import { NavigationItem } from "@/components/layout/navigation-item";
 
 export const Navigation = () => {

@@ -1,0 +1,37 @@
+"use server";
+
+import { redirect } from "next/navigation";
+
+import {
+	CreateCategorySchema,
+	CreateCategorySchemaType,
+} from "@/schemas/categories.schema";
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/services/user.services";
+
+export async function CreateCategory(form: CreateCategorySchemaType) {
+	const parsedBody = CreateCategorySchema.safeParse(form);
+
+	if (!parsedBody.success) {
+		throw new Error("Bad Request!");
+	}
+
+	const { name, icon, type } = parsedBody.data;
+
+	const user = await getCurrentUser();
+
+	if (!user) {
+		return redirect("/auth/sign-in");
+	}
+
+	const category = await db.category.create({
+		data: {
+			userId: user.id,
+			name,
+			icon,
+			type,
+		},
+	});
+
+	return category;
+}

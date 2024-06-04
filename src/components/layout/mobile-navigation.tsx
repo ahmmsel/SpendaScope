@@ -1,13 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Menu } from "lucide-react";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { links } from "@/constants/links";
+import { links } from "@/lib/links";
 import { NavigationItem } from "@/components/layout/navigation-item";
 import { Logo } from "@/components/globals/logo";
-import { useState } from "react";
 
 export const MobileNavigation = () => {
 	const [isOpen, setIsOpen] = useState(false);

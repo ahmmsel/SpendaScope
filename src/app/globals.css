@@ -7,6 +7,12 @@
   src: url("../assets/fonts/Cairo.ttf");
 }
 
+:root,
+html,
+body {
+  height: 100%;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

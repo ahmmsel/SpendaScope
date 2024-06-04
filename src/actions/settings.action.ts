@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { SettingsSchema, SettingsSchemaType } from "@/schemas/settings.schema";
+import { SettingsSchema } from "@/schemas/settings.schema";
 import { getCurrentUser } from "@/services/user.services";
 import { redirect } from "next/navigation";
 
