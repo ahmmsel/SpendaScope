@@ -9,12 +9,14 @@ import data from "@emoji-mart/data";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Category } from "@prisma/client";
 import { toast } from "sonner";
+import { useTheme } from "next-themes";
 
 import {
 	Dialog,
 	DialogClose,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
@@ -41,7 +43,6 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { CreateCategory } from "@/actions/categories.action";
-import { useTheme } from "next-themes";
 
 type Props = {
 	type: TransactionType;
@@ -190,7 +191,7 @@ export const CreateCategoryDialog = ({ type, onSuccessCallback }: Props) => {
 								</FormItem>
 							)}
 						/>
-						<div className="flex items-center gap-2 w-full">
+						<DialogFooter className="flex items-center gap-2 w-full">
 							<DialogClose asChild>
 								<Button variant="secondary" className="w-full">
 									Cancel
@@ -198,11 +199,12 @@ export const CreateCategoryDialog = ({ type, onSuccessCallback }: Props) => {
 							</DialogClose>
 							<Button
 								className="w-full"
+								type="submit"
 								disabled={isPending || !form.formState.isValid}
 							>
 								{isPending ? <Loader2 className="animate-spin" /> : "Save"}
 							</Button>
-						</div>
+						</DialogFooter>
 					</form>
 				</Form>
 			</DialogContent>

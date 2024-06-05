@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mongodb"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -8,7 +8,7 @@ generator client {
 }
 
 model User {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  id            String        @id @default(cuid())
   name          String?
   email         String?       @unique
   emailVerified DateTime?
@@ -24,10 +24,10 @@ model User {
 }
 
 model Settings {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String @id @default(cuid())
   currency String
 
-  userId String @unique @db.ObjectId
+  userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -35,12 +35,12 @@ model Settings {
 }
 
 model Category {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  id   String @id @default(cuid())
   name String
   icon String
   type String @default("income")
 
-  userId String @db.ObjectId
+  userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -50,13 +50,13 @@ model Category {
 }
 
 model Transaction {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(cuid())
   description String
   amount      Float
   type        String   @default("income")
   date        DateTime
 
-  userId String @db.ObjectId
+  userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   category     String
@@ -67,38 +67,38 @@ model Transaction {
 }
 
 model MonthHistory {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
   userId  String
   day     Int
   month   Int
   year    Int
   income  Float
   expense Float
+
+  @@id([day, month, year, userId])
 }
 
 model YearHistory {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
   userId  String
   month   Int
   year    Int
   income  Float
   expense Float
+
+  @@id([month, year, userId])
 }
 
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
+  id                String  @id @default(cuid())
+  userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.String
+  id_token          String?
   session_state     String?
 
   createdAt DateTime @default(now())
@@ -110,9 +110,9 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(cuid())
   sessionToken String   @unique
-  userId       String   @db.ObjectId
+  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -121,7 +121,6 @@ model Session {
 }
 
 model VerificationToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String
   expires    DateTime

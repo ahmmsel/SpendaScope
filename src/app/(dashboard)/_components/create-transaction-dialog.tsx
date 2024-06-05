@@ -1,11 +1,18 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import { CalendarIcon, Loader2 } from "lucide-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
@@ -23,26 +30,56 @@ import {
 	FormField,
 	FormItem,
 	FormLabel,
+	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { CategoryPicker } from "./category-picker";
-import { useCallback } from "react";
-import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { CreateTransaction } from "@/actions/transaction.action";
+import { DateToUTCDate } from "@/lib/helpers";
 
 type Props = {
 	children: React.ReactNode;
 	type: TransactionType;
 };
 
-export const CreateTransaction = ({ children, type }: Props) => {
+export const CreateTransactionDialog = ({ children, type }: Props) => {
+	const [open, setOpen] = useState(false);
+
 	const form = useForm<CreateTransactionSchemaType>({
 		resolver: zodResolver(CreateTransactionSchema),
 		defaultValues: {
 			type,
 			date: new Date(),
+		},
+	});
+
+	const queryClient = useQueryClient();
+
+	const { mutate, isPending } = useMutation({
+		mutationFn: CreateTransaction,
+		onSuccess: () => {
+			toast.success("Transaction Created!", { id: "create-transaction" });
+
+			form.reset({
+				type,
+				description: "",
+				date: new Date(),
+				category: undefined,
+				amount: 0,
+			});
+
+			queryClient.invalidateQueries({
+				queryKey: ["overview"],
+			});
+
+			setOpen((prev) => !prev);
 		},
 	});
 
@@ -53,8 +90,20 @@ export const CreateTransaction = ({ children, type }: Props) => {
 		[form],
 	);
 
+	const onSubmit = useCallback(
+		(values: CreateTransactionSchemaType) => {
+			toast.loading("Creating Transaction...", { id: "create-transaction" });
+
+			mutate({
+				...values,
+				date: DateToUTCDate(values.date),
+			});
+		},
+		[mutate],
+	);
+
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>{children}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
@@ -72,7 +121,7 @@ export const CreateTransaction = ({ children, type }: Props) => {
 					</DialogTitle>
 				</DialogHeader>
 				<Form {...form}>
-					<form className="space-y-4">
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 						<FormField
 							control={form.control}
 							name="description"
@@ -150,14 +199,40 @@ export const CreateTransaction = ({ children, type }: Props) => {
 													<CalendarIcon className="opacity-50 w-4 h-4 ml-auto" />
 												</Button>
 											</PopoverTrigger>
+											<PopoverContent className="w-auto p-0">
+												<Calendar
+													mode="single"
+													selected={field.value}
+													onSelect={(values) => {
+														if (!value) return;
+														field.onChange(value);
+													}}
+													initialFocus
+												/>
+											</PopoverContent>
 										</Popover>
 										<FormDescription>
 											Select a date for your transaction
 										</FormDescription>
+										<FormMessage />
 									</FormItem>
 								)}
 							/>
 						</div>
+						<DialogFooter className="flex items-center gap-2 w-full">
+							<DialogClose asChild>
+								<Button type="submit" variant="secondary" className="w-full">
+									Cancel
+								</Button>
+							</DialogClose>
+							<Button
+								className="w-full"
+								type="submit"
+								disabled={isPending || !form.formState.isValid}
+							>
+								{isPending ? <Loader2 className="animate-spin" /> : "Save"}
+							</Button>
+						</DialogFooter>
 					</form>
 				</Form>
 			</DialogContent>

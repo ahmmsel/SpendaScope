@@ -34,15 +34,15 @@ export const UserButton = () => {
 				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="mr-2">
-				<DropdownMenuItem onClick={() => setTheme("light")}>
-					<Sun className="mr-2" /> Light
+				<DropdownMenuItem onClick={() => setTheme("light")} className="text-sm">
+					<Sun className="mr-2 w-4 h-4" /> Light
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("dark")}>
-					<Moon className="mr-2" /> Dark
+				<DropdownMenuItem onClick={() => setTheme("dark")} className="text-sm">
+					<Moon className="mr-2 w-4 h-4" /> Dark
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem onClick={onLogout}>
-					<LogOut className="mr-2" />
+				<DropdownMenuItem onClick={onLogout} className="text-sm">
+					<LogOut className="mr-2 w-4 h-4" />
 					Logout
 				</DropdownMenuItem>
 			</DropdownMenuContent>

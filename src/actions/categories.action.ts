@@ -13,7 +13,7 @@ export async function CreateCategory(form: CreateCategorySchemaType) {
 	const parsedBody = CreateCategorySchema.safeParse(form);
 
 	if (!parsedBody.success) {
-		throw new Error("Bad Request!");
+		throw new Error(parsedBody.error.message);
 	}
 
 	const { name, icon, type } = parsedBody.data;
