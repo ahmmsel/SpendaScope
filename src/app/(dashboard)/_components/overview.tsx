@@ -1,12 +1,14 @@
 "use client";
 
-import { TypographyH2 } from "@/components/typograhpy/typography-h2";
-import { DateRangePicker } from "@/components/ui/date-range-picker";
-import { MAX_DATE_RANGE_DAYS } from "@/lib/constants";
+import { useState } from "react";
 import { Settings } from "@prisma/client";
 import { differenceInDays, startOfMonth } from "date-fns";
-import { useState } from "react";
 import { toast } from "sonner";
+
+import { TypographyH2 } from "@/components/typograhpy/typography-h2";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { Status } from "./status";
+import { MAX_DATE_RANGE_DAYS } from "@/lib/constants";
 
 type Props = {
 	settings: Settings;
@@ -43,6 +45,7 @@ export const Overview = ({ settings }: Props) => {
 					}}
 				/>
 			</div>
+			<Status settings={settings} from={dateRange.from} to={dateRange.to} />
 		</>
 	);
 };
