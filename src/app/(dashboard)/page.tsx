@@ -13,7 +13,7 @@ export default async function Page() {
 	}
 
 	return (
-		<main className="container my-10 space-y-12">
+		<main className="container my-10">
 			<div className="flex items-center justify-end gap-2">
 				<CreateTransactionDialog type="income">
 					<Button>New Income</Button>

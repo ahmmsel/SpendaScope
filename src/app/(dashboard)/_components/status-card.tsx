@@ -3,24 +3,19 @@
 import { useCallback } from "react";
 import CountUp from "react-countup";
 
-import {
-	Card,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 
 type Props = {
-	currency: Intl.NumberFormat;
+	formatter: Intl.NumberFormat;
 	title: string;
 	value: number;
 	icon: React.ReactNode;
 };
 
-export const StatusCard = ({ currency, title, value, icon }: Props) => {
+export const StatusCard = ({ formatter, title, value, icon }: Props) => {
 	const formatFn = useCallback(() => {
-		return currency.format(value);
-	}, [currency]);
+		return formatter.format(value);
+	}, [formatter]);
 
 	return (
 		<Card className="w-full h-24 flex flex-row items-center gap-2 p-4">

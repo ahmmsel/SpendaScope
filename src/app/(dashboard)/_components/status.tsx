@@ -25,7 +25,7 @@ export const Status = ({ settings, from, to }: Props) => {
 			).then((res) => res.json()),
 	});
 
-	const currency = useMemo(() => {
+	const formatter = useMemo(() => {
 		return CurrencyFormatter(settings.currency);
 	}, [settings.currency]);
 
@@ -33,15 +33,13 @@ export const Status = ({ settings, from, to }: Props) => {
 	const expense = statusQuery.data?.expense || 0;
 	const balance = income - expense;
 
-	console.log(statusQuery.data, "Status!!");
-
 	return (
 		<div className="relative w-full flex flex-wrap md:flex-nowrap gap-2">
 			<SkeletonWrapper isLoading={statusQuery.isFetching} fullWidth>
 				<StatusCard
 					title="Income"
 					value={income}
-					currency={currency}
+					formatter={formatter}
 					icon={
 						<TrendingUp className="w-16 h-16 p-2 text-emerald-600 bg-emerald-400/10 items-center rounded-lg" />
 					}
@@ -51,7 +49,7 @@ export const Status = ({ settings, from, to }: Props) => {
 				<StatusCard
 					title="Expense"
 					value={expense}
-					currency={currency}
+					formatter={formatter}
 					icon={
 						<TrendingDown className="w-16 h-16 p-2 text-rose-600 bg-rose-400/10 items-center rounded-lg" />
 					}
@@ -61,7 +59,7 @@ export const Status = ({ settings, from, to }: Props) => {
 				<StatusCard
 					title="Balance"
 					value={balance}
-					currency={currency}
+					formatter={formatter}
 					icon={
 						<Wallet className="w-16 h-16 p-2 text-sky-600 bg-sky-400/10 items-center rounded-lg" />
 					}

@@ -9,6 +9,7 @@ import { TypographyH2 } from "@/components/typograhpy/typography-h2";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { Status } from "./status";
 import { MAX_DATE_RANGE_DAYS } from "@/lib/constants";
+import { CategoriesStatus } from "./categories-status";
 
 type Props = {
 	settings: Settings;
@@ -22,7 +23,7 @@ export const Overview = ({ settings }: Props) => {
 
 	return (
 		<>
-			<div className="container flex flex-wrap items-end justify-between">
+			<div className="my-6 container flex flex-wrap items-end justify-between">
 				<TypographyH2>Overview</TypographyH2>
 				<DateRangePicker
 					initialDateFrom={dateRange.from}
@@ -45,7 +46,14 @@ export const Overview = ({ settings }: Props) => {
 					}}
 				/>
 			</div>
-			<Status settings={settings} from={dateRange.from} to={dateRange.to} />
+			<div className="space-y-2">
+				<Status settings={settings} from={dateRange.from} to={dateRange.to} />
+				<CategoriesStatus
+					settings={settings}
+					from={dateRange.from}
+					to={dateRange.to}
+				/>
+			</div>
 		</>
 	);
 };

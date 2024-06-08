@@ -203,7 +203,7 @@ export const CreateTransactionDialog = ({ children, type }: Props) => {
 												<Calendar
 													mode="single"
 													selected={field.value}
-													onSelect={(values) => {
+													onSelect={(value) => {
 														if (!value) return;
 														field.onChange(value);
 													}}
