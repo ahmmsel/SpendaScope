@@ -23,7 +23,7 @@ export const Overview = ({ settings }: Props) => {
 
 	return (
 		<>
-			<div className="my-6 container flex flex-wrap items-end justify-between">
+			<div className="my-6 flex flex-wrap items-end justify-between">
 				<TypographyH2>Overview</TypographyH2>
 				<DateRangePicker
 					initialDateFrom={dateRange.from}
