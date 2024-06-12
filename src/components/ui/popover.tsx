@@ -9,6 +9,12 @@ const Popover = PopoverPrimitive.Root;
 
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
+declare module "@radix-ui/react-popover" {
+  interface PopoverContentProps {
+    side?: "top" | "right" | "bottom" | "left" | "center";
+  }
+}
+
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>

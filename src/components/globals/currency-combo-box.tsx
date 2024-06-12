@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Settings } from "@prisma/client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -34,11 +34,17 @@ export function CurrencyComboBox() {
 		queryFn: () => fetch("/api/settings").then((res) => res.json()),
 	});
 
+	const queryClient = useQueryClient();
+
 	const mutation = useMutation({
 		mutationFn: UpdateUserCurrency,
-		onSuccess: (data: Settings) => {
+		onSuccess: async (data: Settings) => {
 			toast.success("Currency updated successfully!", {
 				id: "update-currency",
+			});
+
+			await queryClient.invalidateQueries({
+				queryKey: ["overview"],
 			});
 
 			setSelectedOption(
@@ -46,7 +52,6 @@ export function CurrencyComboBox() {
 			);
 		},
 		onError: (e) => {
-			console.log(e, "Error");
 			toast.error("Something went wrong!");
 		},
 	});

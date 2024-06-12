@@ -29,6 +29,7 @@ export const Overview = ({ settings }: Props) => {
 					initialDateFrom={dateRange.from}
 					initialDateTo={dateRange.to}
 					showCompare={false}
+					align="center"
 					onUpdate={(value) => {
 						const { from, to } = value.range;
 

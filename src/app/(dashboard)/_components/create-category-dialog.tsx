@@ -99,8 +99,6 @@ export const CreateCategoryDialog = ({ type, onSuccessCallback }: Props) => {
 		[mutate],
 	);
 
-	console.log(form.watch());
-
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
@@ -173,7 +171,11 @@ export const CreateCategoryDialog = ({ type, onSuccessCallback }: Props) => {
 													)}
 												</Button>
 											</PopoverTrigger>
-											<PopoverContent className="w-full p-0">
+											<PopoverContent
+												dir="center"
+												side="center"
+												className="w-full p-0"
+											>
 												<Picker
 													data={data}
 													maxFrequentRows={3}

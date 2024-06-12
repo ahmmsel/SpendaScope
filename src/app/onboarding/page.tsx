@@ -10,7 +10,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CurrencyComboBox } from "@/components/settings/currency-combo-box";
+import { CurrencyComboBox } from "@/components/globals/currency-combo-box";
 import Link from "next/link";
 
 export default async function Page() {
