@@ -47,7 +47,7 @@ export const DeleteCategoryDialog = ({ children, category }: Props) => {
 		toast.loading("Deleting category...", { id: "delete-category" });
 
 		mutate({ name: category.name, type: category.type as TransactionType });
-	}, [mutate]);
+	}, [mutate, category.name, category.type]);
 
 	return (
 		<AlertDialog>

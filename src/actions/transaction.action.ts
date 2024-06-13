@@ -102,3 +102,78 @@ export async function CreateTransaction(form: CreateTransactionSchemaType) {
 		}),
 	]);
 }
+
+export async function DeleteTransaction(transactionId: string) {
+	const user = await getCurrentUser();
+
+	if (!user) {
+		return redirect("/auth/sign-in");
+	}
+
+	const transaction = await db.transaction.findUnique({
+		where: {
+			id: transactionId,
+		},
+	});
+
+	if (!transaction) {
+		throw new Error("Transaction with this ID is not found!");
+	}
+
+	await db.$transaction([
+		// Delete Transaction
+		db.transaction.delete({
+			where: {
+				id: transactionId,
+				userId: user.id,
+			},
+		}),
+		// Update month History
+		db.monthHistory.update({
+			where: {
+				day_month_year_userId: {
+					userId: user.id,
+					day: transaction.date.getUTCDate(),
+					month: transaction.date.getUTCMonth(),
+					year: transaction.date.getUTCFullYear(),
+				},
+			},
+			data: {
+				...(transaction.type === "expense" && {
+					expense: {
+						decrement: transaction.amount,
+					},
+				}),
+				...(transaction.type === "income" && {
+					income: {
+						decrement: transaction.amount,
+					},
+				}),
+			},
+		}),
+		// Update year History
+		db.yearHistory.update({
+			where: {
+				month_year_userId: {
+					userId: user.id,
+					month: transaction.date.getUTCMonth(),
+					year: transaction.date.getUTCFullYear(),
+				},
+			},
+			data: {
+				...(transaction.type === "expense" && {
+					expense: {
+						decrement: transaction.amount,
+					},
+				}),
+				...(transaction.type === "income" && {
+					income: {
+						decrement: transaction.amount,
+					},
+				}),
+			},
+		}),
+	]);
+
+	return transaction;
+}

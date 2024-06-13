@@ -70,7 +70,7 @@ export const CategoriesList = ({ type }: Props) => {
 					</div>
 				)}
 				{dataAvailable && (
-					<div className="grid grid-flow-row p-2 gap-2 sm:grid-flow-col sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-4">
 						{categoriesQuery.data.map((category) => (
 							<CategoryCard key={category.id} category={category} />
 						))}

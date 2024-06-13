@@ -76,7 +76,7 @@ export const CreateTransactionDialog = ({ children, type }: Props) => {
 			});
 
 			queryClient.invalidateQueries({
-				queryKey: ["overview"],
+				queryKey: ["overview", "status", "history"],
 			});
 
 			setOpen((prev) => !prev);
