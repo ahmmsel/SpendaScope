@@ -76,7 +76,7 @@ export const CreateTransactionDialog = ({ children, type }: Props) => {
 			});
 
 			queryClient.invalidateQueries({
-				queryKey: ["overview", "status", "history"],
+				queryKey: ["overview"],
 			});
 
 			setOpen((prev) => !prev);
@@ -146,9 +146,8 @@ export const CreateTransactionDialog = ({ children, type }: Props) => {
 									<FormControl>
 										<Input
 											{...field}
-											defaultValue={0}
 											type="number"
-											placeholder="e.g. $40"
+											placeholder="Put the price"
 										/>
 									</FormControl>
 									<FormDescription>
