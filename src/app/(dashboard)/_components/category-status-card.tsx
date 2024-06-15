@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TransactionType } from "@/lib/types";
+import { useMemo } from "react";
 
 type Props = {
 	formatter: Intl.NumberFormat;
@@ -14,7 +15,10 @@ type Props = {
 
 export const CategoryStatusCard = ({ formatter, type, data }: Props) => {
 	const filterdData = data.filter((el) => el.type === type);
-	const total = data.reduce((acc, curr) => acc + (curr?._sum.amount || 0), 0);
+	const total = useMemo(
+		() => data.reduce((acc, curr) => acc + (curr?._sum.amount || 0), 0),
+		[data],
+	);
 
 	return (
 		<Card className="h-80 w-full col-span-6">

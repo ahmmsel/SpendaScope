@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { getCurrentUser } from "@/services/user.services";
 import { Header } from "@/components/layout/header";
+import { MobileNavigation } from "@/components/layout/mobile-navigation";
 
 export default async function Layout({
 	children,
@@ -15,9 +16,10 @@ export default async function Layout({
 	}
 
 	return (
-		<>
+		<div className="relative">
 			<Header />
 			{children}
-		</>
+			<MobileNavigation />
+		</div>
 	);
 }

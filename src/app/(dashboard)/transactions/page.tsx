@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { differenceInDays, startOfMonth } from "date-fns";
+import { differenceInDays, endOfMonth, startOfMonth } from "date-fns";
 import { toast } from "sonner";
 
 import { DateRangePicker } from "@/components/ui/date-range-picker";
@@ -12,7 +12,7 @@ import { TransactionTable } from "./_components/transaction-table";
 export default function Page() {
 	const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
 		from: startOfMonth(new Date()),
-		to: new Date(),
+		to: endOfMonth(new Date()),
 	});
 
 	return (

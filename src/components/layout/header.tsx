@@ -13,10 +13,7 @@ export const Header = () => {
 					<Logo />
 					<Navigation />
 				</div>
-				<div className="flex items-center gap-x-4">
-					<UserButton />
-					<MobileNavigation />
-				</div>
+				<UserButton />
 			</div>
 		</header>
 	);

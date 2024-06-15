@@ -164,7 +164,7 @@ export const History = ({ settings }: Props) => {
 						{!availableData && (
 							<Card className="bg-background flex flex-col items-center justify-center h-[300px]">
 								No data for selected period.
-								<p className="text-sm text-muted-foreground">
+								<p className="text-sm text-center text-muted-foreground">
 									Trying to select different period or adding new transaction.
 								</p>
 							</Card>

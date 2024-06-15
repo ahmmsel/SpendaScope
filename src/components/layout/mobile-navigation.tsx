@@ -1,41 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { Menu } from "lucide-react";
+import Link from "next/link";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import { links } from "@/lib/links";
-import { NavigationItem } from "@/components/layout/navigation-item";
-import { Logo } from "@/components/globals/logo";
 
 export const MobileNavigation = () => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const onClose = () => {
-		() => setIsOpen((prev) => !prev);
-	};
-
 	return (
-		<Sheet open={isOpen} onOpenChange={setIsOpen}>
-			<SheetTrigger asChild>
-				<Button variant="ghost" size="icon" className="md:hidden">
-					<Menu className="w-6 h-6" />
-				</Button>
-			</SheetTrigger>
-			<SheetContent side="left" className="py-4 space-y-4">
-				<Logo width={60} height={60} />
-				<div className="py-4 flex flex-col items-start gap-1">
-					{links.map((link) => (
-						<NavigationItem
-							key={link.href}
-							label={link.label}
-							href={link.href}
-							onClick={onClose}
-						/>
-					))}
-				</div>
-			</SheetContent>
-		</Sheet>
+		<div className="md:hidden fixed bottom-0 w-full h-14 bg-background z-50 mt-16 p-4">
+			<div className="flex items-center justify-center gap-16">
+				{links.map(({ icon: Icon, ...item }) => (
+					<Link href={item.href} key={item.href}>
+						<Icon className="w-6 h-6" />
+					</Link>
+				))}
+			</div>
+		</div>
 	);
 };

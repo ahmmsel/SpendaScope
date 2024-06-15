@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Settings } from "@prisma/client";
-import { differenceInDays, startOfMonth } from "date-fns";
+import { differenceInDays, endOfMonth, startOfMonth } from "date-fns";
 import { toast } from "sonner";
 
 import { TypographyH2 } from "@/components/typograhpy/typography-h2";
@@ -18,7 +18,7 @@ type Props = {
 export const Overview = ({ settings }: Props) => {
 	const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
 		from: startOfMonth(new Date()),
-		to: new Date(),
+		to: endOfMonth(new Date()),
 	});
 
 	return (

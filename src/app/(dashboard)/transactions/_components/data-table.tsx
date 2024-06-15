@@ -29,8 +29,6 @@ import {
 } from "@/components/ui/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import { Button } from "@/components/ui/button";
-import { Description } from "@radix-ui/react-toast";
-import { GetTransactionsHistoryType } from "@/app/api/transactions-history/route";
 
 const csvConfig = mkConfig({
   fieldSeparator: ",",
@@ -105,6 +103,8 @@ export function DataTable<TData, TValue>({
                 .rows.map((row) => row.original);
               onExportCSV(data);
             }}
+            size="sm"
+            className="ml-auto hidden h-8 lg:flex"
           >
             <Download className="w-4 h-4 mr-2" /> Export CSV
           </Button>
