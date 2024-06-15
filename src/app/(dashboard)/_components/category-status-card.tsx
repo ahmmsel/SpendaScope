@@ -40,12 +40,12 @@ export const CategoryStatusCard = ({ formatter, type, data }: Props) => {
 				{filterdData.length > 0 && (
 					<ScrollArea className="h-60 w-full px-4">
 						<div className="flex flex-col w-full gap-4 p-4">
-							{filterdData.map((item) => {
+							{filterdData.map((item, index) => {
 								const amount = item._sum.amount || 0;
 								const percentage = (amount * 100) / (total || amount);
 
 								return (
-									<div className="flex flex-col gap-2">
+									<div key={index} className="flex flex-col gap-2">
 										<div className="flex items-center justify-between">
 											<span className="flex items-center text-gray-400">
 												{item.categoryIcon} {item.category}

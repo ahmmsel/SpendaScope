@@ -15,7 +15,7 @@ type Props = {
 export const StatusCard = ({ formatter, title, value, icon }: Props) => {
 	const formatFn = useCallback(() => {
 		return formatter.format(value);
-	}, [formatter]);
+	}, [formatter, value]);
 
 	return (
 		<Card className="w-full h-24 flex flex-row items-center gap-2 p-4">

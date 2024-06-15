@@ -25,7 +25,7 @@ export default async function Page() {
 			<div className="text-center space-y-1.5">
 				<h1 className="text-4xl font-extrabold">Welcome, {user.name}! </h1>
 				<p className="text-muted-foreground">
-					Let's get started by setting up your currency.
+					Let&apos;s get started by setting up your currency.
 				</p>
 				<p className="text-muted-foreground">You can change it later!</p>
 			</div>
